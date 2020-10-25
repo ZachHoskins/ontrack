@@ -32,12 +32,9 @@ class Year extends React.Component {
         let labels = resp.results.map((r) => { return r.category; });
         let datasets = [];
 
-        resp.categories.forEach((category) => {
-          datasets[0].push({ label: 'Within goal',backgroundColor: category.color, data: []});
-          datasets[1].push({ label: 'Over goal', backgroundColor: '#000', data: [] })
-        })
-
         resp.results.forEach((r) => {
+          datasets[0].push({ label: 'Within goal',backgroundColor: r.color, data: [] });
+          datasets[1].push({ label: 'Over goal', backgroundColor: '#000', data: [] });
           const amountOver = parseFloat(r.spend) - parseFloat(r.monthly_goal);
           const normalizedAmountOver = r.monthly_goal && amountOver > 0 ? amountOver : 0;
           datasets[0].data.push((r.spend - normalizedAmountOver) / 100)
